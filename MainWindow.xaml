@@ -1,0 +1,15 @@
+﻿<Window x:Class="pong.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pong"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" x:Name="mainWindow" Initialized="WindowLoaded">
+    <Grid>
+        <!--<TextBlock Name="text" Text="{Binding Path=Test}" DataContext="{Binding ElementName=mainWindow}"/>-->
+        <!--Text="{Binding ElementName=mainWindow, Path=Test, Mode=OneWay}"-->
+        <Frame Content="{Binding Path=Page}" DataContext="{Binding ElementName=mainWindow}"/>
+        <Button Click="StartClicked" Content="Start game" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    </Grid>
+</Window>
