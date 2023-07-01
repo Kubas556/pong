@@ -52,7 +52,7 @@ namespace pong
 
         private void StartClicked(object sender, RoutedEventArgs e)
         {
-            ((Button)sender).Visibility = Visibility.Hidden;
+            //((Button)sender).Visibility = Visibility.Hidden;
 
             Config config = new Config()
             {
@@ -60,6 +60,9 @@ namespace pong
                 paddleSizeY = 50,
                 paddleSpeed = 2,
                 ballDiameter = 10,
+                paddleOffset = 50,
+                ballSpeed = 2,
+                randomizeAfterPoint = true
             };
             Game game = new Game(this, config);
             Page = game;

@@ -14,6 +14,12 @@ namespace pong
 
         public int ballDiameter;
 
+        public int paddleOffset;
+
+        public int ballSpeed;
+
         public (int width, int height) playArea;
+
+        public bool randomizeAfterPoint;
     }
 }

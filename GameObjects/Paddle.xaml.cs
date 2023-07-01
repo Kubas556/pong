@@ -29,8 +29,8 @@ namespace pong.GameObjects
         public Size Size { get { return _size; } set { _size = value; OnPropertyChanged("Size"); UpdateHitbox(); } }
 
         private Point _location = new Point(0, 0);
-        public int X { get { return _location.X; } set { _location.X = value; Canvas.SetLeft(this, value); UpdateHitbox(); } }
-        public int Y { get { return _location.Y; } set { _location.Y = value; Canvas.SetTop(this, value); UpdateHitbox(); } }
+        public double X { get { return _location.X; } set { _location.X = value; Canvas.SetLeft(this, value); UpdateHitbox(); } }
+        public double Y { get { return _location.Y; } set { _location.Y = value; Canvas.SetTop(this, value); UpdateHitbox(); } }
 
         private System.Drawing.Rectangle _hitbox;
         public System.Drawing.Rectangle Hitbox { get { return _hitbox; } }
@@ -45,14 +45,14 @@ namespace pong.GameObjects
             };
             RectangleFill.SetBinding(Shape.FillProperty, myBinding);
 
-            _hitbox = new System.Drawing.Rectangle(_location, _size);
+            UpdateHitbox();
             //Debug.WriteLine(this.Width);
             //System.Drawing.Rectangle t = new System.Drawing.Rectangle(,);
         }
 
         private void UpdateHitbox()
         {
-            _hitbox.Location = _location;
+            _hitbox.Location = new System.Drawing.Point((int)_location.X, (int)_location.Y);
             _hitbox.Size = _size;
         }
 

@@ -13,8 +13,8 @@ namespace pong.GameObjects
     {
         public Size Size { get; set; }
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         public System.Drawing.Rectangle Hitbox { get; }
 

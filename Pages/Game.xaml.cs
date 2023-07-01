@@ -24,6 +24,7 @@ namespace pong.Pages
     /// </summary>
     public partial class Game : Page, INotifyPropertyChanged
     {
+        private MainWindow _window;
         private Config _config;
 
         private Paddle _leftPaddle, _rightPaddle;
@@ -41,15 +42,16 @@ namespace pong.Pages
             InitializeComponent();
             window.KeyDown += OnKeyDown;
             window.KeyUp += OnKeyUp;
+            _window = window;
 
             _config = config;
 
-            _leftPaddle = new Paddle() { Width = _config.paddleSizeX, Height = _config.paddleSizeY, X = 0, Y = 0 };
-            _rightPaddle = new Paddle() { Width = _config.paddleSizeX, Height = _config.paddleSizeY, X = 0, Y = 0 };
-            //addToCanvas(_leftPaddle);
-            //addToCanvas(_rightPaddle);
+            _leftPaddle = new Paddle() { Width = _config.paddleSizeX, Height = _config.paddleSizeY };
+            _rightPaddle = new Paddle() { Width = _config.paddleSizeX, Height = _config.paddleSizeY };
+            addToCanvas(_leftPaddle);
+            addToCanvas(_rightPaddle);
 
-            _ball = new Ball(config.ballDiameter) { X = 0, Y = 0};
+            _ball = new Ball(config.ballDiameter);
             addToCanvas(_ball);
 
             _controlsManager = new ControlsManager(window, _config, _leftPaddle, _rightPaddle);
@@ -58,16 +60,22 @@ namespace pong.Pages
 
         private void GameLoop(object? sender, EventArgs e)
         {
-            if(_ballManager.TouchesSide(out Side? side))
+            if(_ballManager.TouchesPlayerSide(out Side? side))
             {
-                switch(side) 
+                if (side == Side.Left || side == Side.Right)
                 {
-                    case Side.Left:
-                        Score1++;
-                        break;
-                    case Side.Right:
-                        Score2++;
-                        break;
+
+                    switch (side)
+                    {
+                        case Side.Left:
+                            Score1++;
+                            break;
+                        case Side.Right:
+                            Score2++;
+                            break;
+                    }
+
+                    RepositionBall();
                 }
             }
 
@@ -160,16 +168,35 @@ namespace pong.Pages
 
         private void PositionGameObjects()
         {
-            _ball.X = _config.playArea.width / 2;
-            _ball.Y = _config.playArea.height / 2;
+            RepositionBall();
 
             _leftPaddle.Y = _rightPaddle.Y = (_config.playArea.height / 2) - (_config.paddleSizeY / 2);
 
-            _rightPaddle.X = _config.playArea.width - _config.paddleSizeX;
+            _rightPaddle.X = _config.playArea.width - _config.paddleSizeX - _config.paddleOffset;
+            _leftPaddle.X = _config.paddleOffset;
+        }
+
+        private void RepositionBall()
+        {
+            _ball.X = _config.playArea.width / 2;
+            _ball.Y = _config.playArea.height / 2;
+
+            if (_config.randomizeAfterPoint)
+                _ballManager.RandomizeDirection();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
+            if(e.Key == Key.Escape)
+            {
+                _window.Page = null;
+                
+            }
+        }
+
+        ~Game()
+        {
+            Debug.WriteLine("destroying");
         }
 
         private void OnKeyUp(object sender, KeyEventArgs e)

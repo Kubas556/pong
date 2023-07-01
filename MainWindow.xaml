@@ -9,7 +9,7 @@
     <Grid>
         <!--<TextBlock Name="text" Text="{Binding Path=Test}" DataContext="{Binding ElementName=mainWindow}"/>-->
         <!--Text="{Binding ElementName=mainWindow, Path=Test, Mode=OneWay}"-->
-        <Frame Content="{Binding Path=Page}" DataContext="{Binding ElementName=mainWindow}"/>
         <Button Click="StartClicked" Content="Start game" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Frame Content="{Binding Path=Page}" DataContext="{Binding ElementName=mainWindow}" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

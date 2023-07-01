@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\jakub\source\repos\pong\obj\Debug\net7.0-windows\
+C:\Users\jakub\OneDrive\Desktop\pong\obj\Debug\net7.0-windows\
 pong
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\jakub\source\repos\pong\App.xaml
+C:\Users\jakub\OneDrive\Desktop\pong\App.xaml
 41631181537
 
-101207808195
+11345197535
 1981827736222
 GameObjects\Ball.xaml;GameObjects\Paddle.xaml;MainWindow.xaml;Pages\Game.xaml;
 

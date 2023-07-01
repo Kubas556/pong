@@ -2,6 +2,7 @@
 using pong.Pages;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 
 namespace pong
@@ -10,7 +11,7 @@ namespace pong
     {
         private Ball _ball;
         private Config _config;
-        private (int X, int Y) _direction;
+        private (double X, double Y) _direction;
         private IHitboxedGameObject[] _colliables;
 
         public BallManager(Ball ball, Config config, IHitboxedGameObject[] colliables)
@@ -64,7 +65,7 @@ namespace pong
             _ball.Y += _direction.Y;
         }
 
-        public bool TouchesSide(out Side? side)
+        public bool TouchesPlayerSide(out Side? side)
         {
             bool willOverflow = WillOverflow(out Side[] sides);
 
@@ -84,7 +85,31 @@ namespace pong
             return willOverflow;
         }
 
-        private int InvertDirection(int direction)
+        //to prevent ifinitelly bouncing ball between top and bottom side
+        private const int _saveMinimalBallAngle = 35;
+        public void RandomizeDirection()
+        {
+            // -90 for shift base angle to top side
+            double baseAngle = Random.Shared.Next(_saveMinimalBallAngle, 360 - _saveMinimalBallAngle) - 90;
+
+            //correct angle if do not fullfill safe minimal angle
+            if(baseAngle > 90 - _saveMinimalBallAngle && baseAngle < 90)
+            {
+                baseAngle = 90 - _saveMinimalBallAngle;
+            } else if (baseAngle < 90 + _saveMinimalBallAngle && baseAngle > 90) 
+            {
+                baseAngle = 90 + _saveMinimalBallAngle;
+            }
+
+            double radian = (baseAngle) * Math.PI / 180;            
+            double X = _config.ballSpeed * Math.Cos(radian);
+            double Y = _config.ballSpeed * Math.Sin(radian);
+
+            _direction.X = X;
+            _direction.Y = Y;
+        }
+
+        private double InvertDirection(double direction)
         {
             return direction > 0 ? -Math.Abs(direction) : Math.Abs(direction);
         }
