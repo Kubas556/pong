@@ -23,10 +23,10 @@ namespace pong.GameObjects
     public partial class Paddle : UserControl, INotifyPropertyChanged, IHitboxedGameObject
     {
         private Brush _fill = Brushes.Brown;
-        public Brush Fill { get { return _fill; } set { _fill = value; OnPropertyChanged("Fill"); } }
+        public Brush Fill { get { return _fill; } set { _fill = value; OnPropertyChanged(nameof(Fill)); } }
 
         private Size _size = new Size(0, 0);
-        public Size Size { get { return _size; } set { _size = value; OnPropertyChanged("Size"); UpdateHitbox(); } }
+        public Size Size { get { return _size; } set { _size = value; OnPropertyChanged(nameof(Size)); UpdateHitbox(); } }
 
         private Point _location = new Point(0, 0);
         public double X { get { return _location.X; } set { _location.X = value; Canvas.SetLeft(this, value); UpdateHitbox(); } }
@@ -39,7 +39,7 @@ namespace pong.GameObjects
         {
             InitializeComponent();
 
-            var myBinding = new Binding("Fill")
+            var myBinding = new Binding(nameof(Fill))
             {
                 Source = this,
             };
