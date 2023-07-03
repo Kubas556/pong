@@ -86,19 +86,19 @@ namespace pong
         }
 
         //to prevent ifinitelly bouncing ball between top and bottom side
-        private const int _saveMinimalBallAngle = 35;
+        private const int safeMinimalBallAngle = 35;
         public void RandomizeDirection()
         {
             // -90 for shift base angle to top side
-            double baseAngle = Random.Shared.Next(_saveMinimalBallAngle, 360 - _saveMinimalBallAngle) - 90;
+            double baseAngle = Random.Shared.Next(safeMinimalBallAngle, 360 - safeMinimalBallAngle) - 90;
 
             //correct angle if do not fullfill safe minimal angle
-            if(baseAngle > 90 - _saveMinimalBallAngle && baseAngle < 90)
+            if(baseAngle > 90 - safeMinimalBallAngle && baseAngle < 90)
             {
-                baseAngle = 90 - _saveMinimalBallAngle;
-            } else if (baseAngle < 90 + _saveMinimalBallAngle && baseAngle > 90) 
+                baseAngle = 90 - safeMinimalBallAngle;
+            } else if (baseAngle < 90 + safeMinimalBallAngle && baseAngle > 90) 
             {
-                baseAngle = 90 + _saveMinimalBallAngle;
+                baseAngle = 90 + safeMinimalBallAngle;
             }
 
             double radian = (baseAngle) * Math.PI / 180;            
