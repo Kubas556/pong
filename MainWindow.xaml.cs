@@ -25,7 +25,7 @@ namespace pong
     {
         private Page? _page;
 
-        public Page Page
+        public Page? Page
         {
             get { return _page; }
             set { 
